@@ -1,4 +1,4 @@
-# Flask-React-MaterialU-Template
+# Flask React MaterialU Template
 
 Flask, React, Materia-lUi template
 
