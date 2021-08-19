@@ -17,6 +17,12 @@ def create_app():
                 static_url_path='',
                 static_folder='front/build')
 
+    if app.config['DEBUG']:
+        import secret
+        os.environ["SECRET_KEY"] = secret.appkey
+
+    app.secret_key = os.environ['SECRET_KEY']
+
     # your settings.py
     SESSION_PROTECTION = "strong"
 
@@ -34,7 +40,7 @@ def create_app():
     # setting CORS and which Database to use based on whether debug is enabled
     if app.config['DEBUG']:
         import secret
-        app.secret_key = secret.appkey
+        os.environ["SECRET_KEY"] = secret.appkey
         CORS(app, resources={
              r"/api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:5000"]}}, supports_credentials=True)
         log("Using CORS").success()
@@ -42,7 +48,6 @@ def create_app():
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         log("Using SQL Lite").success()
     else:
-        import os
         app.secret_key = os.environ['SECRET_KEY']
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -73,4 +78,4 @@ def create_app():
 
 
 if __name__ == '__main__':
-    app.run()
+    app = create_app()
