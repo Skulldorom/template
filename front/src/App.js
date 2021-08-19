@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  right: {
+    float: "right",
+  },
 }));
 
 function App() {
@@ -46,15 +49,14 @@ function App() {
   const { isLoggedIn, setLoggedin } = React.useContext(SessionManager);
   return (
     <>
+      <FormGroup row className={classes.right}>
+        <ThemeSlider />
+        <AuthButtons isLoggedIn={isLoggedIn} setAuthUser={setLoggedin} />
+      </FormGroup>
       <Container maxWidth="lg" className={classes.container}>
         <Typography variant="body1" color="primary" align="center">
           <img src={logo} style={{ height: "300px" }} alt="logo" />
         </Typography>
-        <FormGroup row>
-          <ThemeSlider />
-          <AuthButtons isLoggedIn={isLoggedIn} setAuthUser={setLoggedin} />
-        </FormGroup>
-
         <Typography variant="body1" color="primary" align="center">
           <Button
             variant="outlined"

@@ -2,12 +2,16 @@
 
 Flask, React, Materia-lUi template
 
+## Demo
+
+https://skulldorom-react-flask.herokuapp.com/
+
 ## Dependancies
 
-+ Python
-+ Node.js
-+ Degit
-+ Yarn (Optional)
+- Python
+- Node.js
+- Degit
+- Yarn (Optional)
 
 To install degit:
 `npm install degit -g`
