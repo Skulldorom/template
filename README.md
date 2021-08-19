@@ -14,7 +14,7 @@ it will require the following variable `appkey=""` which will be the secret key 
 ## Installation
 
 ```
-npx degit Skulldorom/template TestTemplate
+npx degit Skulldorom/template React-Flask
 
 python -m venv env
 env\Scripts\Activate.ps1
