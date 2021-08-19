@@ -31,16 +31,12 @@ function Login({ setAuthUser }) {
     login({ email: email, password: password }, setAuthUser);
   };
   return (
-    <div>
+    <>
       <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Login
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Login</DialogTitle>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="Login-Form">
+        <DialogTitle id="Login-Form">Login</DialogTitle>
         <form>
           <DialogContent>
             <DialogContentText>Sign in here!</DialogContentText>
@@ -76,7 +72,7 @@ function Login({ setAuthUser }) {
           </DialogActions>
         </form>
       </Dialog>
-    </div>
+    </>
   );
 }
 
@@ -125,20 +121,17 @@ function SignUp() {
       email: email,
       fname: fname,
       lname: lname,
+      password: password,
       phoneNumber: phone,
     });
   };
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Sign up
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Create Account</DialogTitle>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Create Account</DialogTitle>
         <form>
           <DialogContent>
             <DialogContentText>

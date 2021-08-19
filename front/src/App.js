@@ -8,7 +8,11 @@ import {
   Box,
   Button,
   FormGroup,
+  AppBar,
+  IconButton,
+  Toolbar,
 } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 import ThemeSlider from "./Components/ThemeSlider";
 import AuthButtons from "./Auth/AuthButtons";
@@ -35,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
+  title: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
   box: {
     alignItems: "center",
     justifyContent: "center",
@@ -49,11 +59,26 @@ function App() {
   const { isLoggedIn, setLoggedin } = React.useContext(SessionManager);
   return (
     <>
-      <FormGroup row className={classes.right}>
-        <ThemeSlider />
-        <AuthButtons isLoggedIn={isLoggedIn} setAuthUser={setLoggedin} />
-      </FormGroup>
-      <Container maxWidth="lg" className={classes.container}>
+      <AppBar position="static" color="transparent">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Template
+          </Typography>
+          <FormGroup row className={classes.right}>
+            <ThemeSlider />
+            <AuthButtons isLoggedIn={isLoggedIn} setAuthUser={setLoggedin} />
+          </FormGroup>
+        </Toolbar>
+      </AppBar>
+      <Container className={classes.container}>
         <Typography variant="body1" color="primary" align="center">
           <img src={logo} style={{ height: "300px" }} alt="logo" />
         </Typography>
