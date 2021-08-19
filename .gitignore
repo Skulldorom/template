@@ -115,4 +115,3 @@ dmypy.json
 
 # project specific
 secret.py
-front/build/
