@@ -2,19 +2,23 @@
 
 Flask, React, Materia-lUi template
 
-## Demo
+## Dependancies
 
-None
++ Python
++ Node.js
++ Degit
++ Yarn (Optional)
 
-## Basic Info
+To install degit:
+`npm install degit -g`
 
-A secret.py file is required to run the application which will hold all secret keys
-it will require the following variable `appkey=""` which will be the secret key for flask.
+To install Yarn
+`npm install yarn -g`
 
-## Installation
+## Getting started
 
 ```
-install template using npx
+npx degit Skulldorom/template React-Flask
 
 python -m venv env
 env\Scripts\Activate.ps1
@@ -31,5 +35,8 @@ npm install
 Then use either
 
 `yarn build` or `npm build`
+
+A secret.py file is required to run the application which will hold all secret keys
+it will require the following variable `appkey=""` which will be the secret key for flask.
 
 Once that is done you can start the Flask backend
