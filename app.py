@@ -6,7 +6,6 @@ from flask_login import LoginManager
 
 import os
 from log import log
-import secret
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -18,7 +17,6 @@ def create_app():
                 static_url_path='',
                 static_folder='front/build')
 
-    app.secret_key = secret.appkey
     # your settings.py
     SESSION_PROTECTION = "strong"
 
@@ -35,6 +33,8 @@ def create_app():
 
     # setting CORS and which Database to use based on whether debug is enabled
     if app.config['DEBUG']:
+        import secret
+        app.secret_key = secret.appkey
         CORS(app, resources={
              r"/api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:5000"]}}, supports_credentials=True)
         log("Using CORS").success()
@@ -43,6 +43,7 @@ def create_app():
         log("Using SQL Lite").success()
     else:
         import os
+        app.secret_key = os.environ['SECRET_KEY']
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         log("Using Env").success()
