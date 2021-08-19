@@ -6,12 +6,7 @@ Flask, React, Materia-lUi template
 
 None
 
-## Basic Info
-
-A secret.py file is required to run the application which will hold all secret keys
-it will require the following variable `appkey=""` which will be the secret key for flask.
-
-## Installation
+## Getting started
 
 ```
 npx degit Skulldorom/template React-Flask
@@ -31,5 +26,8 @@ npm install
 Then use either
 
 `yarn build` or `npm build`
+
+A secret.py file is required to run the application which will hold all secret keys
+it will require the following variable `appkey=""` which will be the secret key for flask.
 
 Once that is done you can start the Flask backend
