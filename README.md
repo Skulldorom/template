@@ -14,7 +14,7 @@ it will require the following variable `appkey=""` which will be the secret key 
 ## Installation
 
 ```
-install template using npx
+npx degit Skulldorom/template TestTemplate
 
 python -m venv env
 env\Scripts\Activate.ps1
