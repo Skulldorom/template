@@ -2,9 +2,18 @@
 
 Flask, React, Materia-lUi template
 
-## Demo
+## Dependancies
 
-None
++ Python
++ Node.js
++ Degit
++ Yarn (Optional)
+
+To install degit:
+`npm install degit -g`
+
+To install Yarn
+`npm install yarn -g`
 
 ## Getting started
 
