@@ -36,7 +36,7 @@ def create_app():
     # setting CORS and which Database to use based on whether debug is enabled
     if app.config['DEBUG']:
         CORS(app, resources={
-             r"/api/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
+             r"/api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:5000"]}}, supports_credentials=True)
         log("Using CORS").success()
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -65,10 +65,11 @@ def create_app():
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
 
+    if app.config['DEBUG']:
+        print('React app running on http://localhost:5000/')
+
     return app
 
 
 if __name__ == '__main__':
     app.run()
-
-app = create_app()
