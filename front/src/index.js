@@ -9,26 +9,29 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomThemeProvider from "./Components/CustomThemeProvider";
+import SessionManagerProvider from "./Auth/SesssionManager";
 
 document.title = "Flask React";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CustomThemeProvider>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <CssBaseline />
-      <App />
-    </CustomThemeProvider>
+    <SessionManagerProvider>
+      <CustomThemeProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <CssBaseline />
+        <App />
+      </CustomThemeProvider>
+    </SessionManagerProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

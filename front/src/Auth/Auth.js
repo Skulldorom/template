@@ -12,7 +12,6 @@ export function login(data, setAuthUser) {
     .then((res) => {
       toast.success("You have been logged in, " + res.data.name);
       setAuthUser(true);
-      localStorage.setItem("isLoggedin", true);
     })
     .catch((err) => {
       toast.error("Ohh no something went wrong");
@@ -56,7 +55,7 @@ export function checkLoggedIn() {
       withCredentials: true,
     })
     .then((res) => {
-      return res.data.status;
+      return res.data;
     })
     .catch((err) => {
       toast.error("Ohh no something went wrong");

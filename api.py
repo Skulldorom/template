@@ -19,6 +19,7 @@ def get_csrf():
 def test():
     from flask_wtf.csrf import generate_csrf
     create_db()
+    print("session") if session else print('No session')
     print('Yay you can communicate with the server!')
     if request.headers.get("X-CSRFToken"):
         response = jsonify(detail="success")
@@ -32,7 +33,8 @@ def check():
     if current_user.is_authenticated:
         response = jsonify(status=True)
     else:
-        response = jsonify(status=False)
+        Sess = True if session else False
+        response = jsonify(status=False, sess=Sess)
     return response
 
 

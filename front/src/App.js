@@ -1,6 +1,4 @@
 import React from "react";
-import { SessionManager, StartSession } from "./SessionManager";
-import { checkLoggedIn } from "./Auth/Auth";
 import logo from "./logo.svg";
 import SkullReact from "./SkullReact";
 import {
@@ -14,6 +12,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import ThemeSlider from "./Components/ThemeSlider";
 import AuthButtons from "./Auth/AuthButtons";
+import { SessionManager } from "./Auth/SesssionManager";
 
 function Copyright() {
   return (
@@ -43,50 +42,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-  const [authUser, setAuthUser] = React.useState(false);
-  checkLoggedIn().then((data) => setAuthUser(data));
-
   const classes = useStyles();
-
+  const { isLoggedIn, setLoggedin } = React.useContext(SessionManager);
   return (
-    <SessionManager.Provider
-      value={{
-        header: StartSession(),
-        isLoggedIn: authUser,
-      }}
-    >
-      <SessionManager.Consumer>
-        {({ isLoggedIn }) => (
-          <Container maxWidth="lg" className={classes.container}>
-            <Typography variant="body1" color="primary" align="center">
-              <img src={logo} style={{ height: "300px" }} alt="logo" />
-            </Typography>
-            <FormGroup row>
-              <ThemeSlider />
-              <AuthButtons isLoggedIn={isLoggedIn} setAuthUser={setAuthUser} />
-            </FormGroup>
+    <>
+      <Container maxWidth="lg" className={classes.container}>
+        <Typography variant="body1" color="primary" align="center">
+          <img src={logo} style={{ height: "300px" }} alt="logo" />
+        </Typography>
+        <FormGroup row>
+          <ThemeSlider />
+          <AuthButtons isLoggedIn={isLoggedIn} setAuthUser={setLoggedin} />
+        </FormGroup>
 
-            <Typography variant="body1" color="primary" align="center">
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={() => SkullReact.Test()}
-              >
-                Test (Prints in the backend)
-              </Button>
-            </Typography>
-            <br />
-            <br />
-            <Typography variant="h3" color="primary" align="center">
-              Logged in? {String(isLoggedIn)}
-            </Typography>
-          </Container>
-        )}
-      </SessionManager.Consumer>
+        <Typography variant="body1" color="primary" align="center">
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => SkullReact.Test()}
+          >
+            Test (Prints in the backend)
+          </Button>
+        </Typography>
+        <br />
+        <br />
+        <Typography variant="h3" color="primary" align="center">
+          Logged in? {String(isLoggedIn)}
+        </Typography>
+      </Container>
       <Box pt={4}>
         <Copyright />
       </Box>
-    </SessionManager.Provider>
+    </>
   );
 }
 
