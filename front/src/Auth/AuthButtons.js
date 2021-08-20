@@ -122,7 +122,7 @@ function SignUp() {
       fname: fname,
       lname: lname,
       password: password,
-      phoneNumber: phone,
+      telephone: phone,
     });
   };
   return (
