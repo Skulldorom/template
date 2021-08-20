@@ -49,7 +49,7 @@ def create_app():
         log("Using SQL Lite").success()
     else:
         app.secret_key = os.environ['SECRET_KEY']
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL?sslmode=require'']
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL?sslmode=require']
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         log("Using Env").success()
 
