@@ -4,22 +4,21 @@ from models import User, create_db
 from werkzeug.security import generate_password_hash, check_password_hash
 from log import log
 from flask_login import login_user, login_required, logout_user, current_user
+from flask_wtf.csrf import generate_csrf
 
 api = Blueprint('api', __name__)
 
 
 @api.route("/api/csrf")
 def get_csrf():
-    from flask_wtf.csrf import generate_csrf
     response = {'detail': "success", "X-CSRFToken": generate_csrf()}
     return response
 
 
 @api.route("/api/test")
 def test():
-    from flask_wtf.csrf import generate_csrf
     create_db()
-    print("session") if session else print('No session')
+    print(session) if session else print('No session')
     print('Yay you can communicate with the server!')
     if request.headers.get("X-CSRFToken"):
         response = jsonify(detail="success")
@@ -104,6 +103,7 @@ def create():
 
     newuser = User(email, fname, lname, telephone,
                    generate_password_hash(password, method='sha256'))
+
     db.session.add(newuser)
     db.session.commit()
 

@@ -55,6 +55,19 @@ const SessionManagerProvider = (props) => {
     setLoggedin: setLoggedin,
   };
 
+  axios.interceptors.response.use(
+    (res) => res,
+    (err) => {
+      if (err.response.status === 400) {
+        SkullReact.Set().then((data) => {
+          setCurrent(data);
+        });
+        throw new Error(`${err.config.url} not found`);
+      }
+      throw err;
+    }
+  );
+
   return (
     <SessionManager.Provider value={contextValue}>
       {children}
