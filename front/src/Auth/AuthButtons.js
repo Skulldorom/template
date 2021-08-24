@@ -8,14 +8,35 @@ import {
   DialogContentText,
   DialogActions,
   TextField,
+  FormControl,
+  InputLabel,
+  Input,
+  InputAdornment,
+  IconButton,
+  FormHelperText,
 } from "@material-ui/core";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { login, logout, createAccount } from "../Auth/Auth";
 import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  textfield: {
+    marginBottom: "10px",
+  },
+}));
 
 function Login({ setAuthUser }) {
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,6 +45,14 @@ function Login({ setAuthUser }) {
   const handleClose = () => {
     setOpen(false);
     setPassword("");
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const handleSignIn = (event) => {
@@ -42,20 +71,34 @@ function Login({ setAuthUser }) {
             <DialogContentText>Sign in here!</DialogContentText>
             <TextField
               required
+              className={classes.textfield}
               label="Email"
               type="email"
               value={email}
               onInput={(e) => setEmail(e.target.value)}
               fullWidth
             />
-            <TextField
-              required
-              label="Password"
-              type="password"
-              value={password}
-              onInput={(e) => setPassword(e.target.value)}
-              fullWidth
-            />
+            <FormControl required fullWidth className={classes.textfield}>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      colour="secondary"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="secondary">
@@ -87,6 +130,9 @@ function SignUp() {
   const [error, setError] = React.useState(false);
   const [errorText, setEText] = React.useState("");
   const [dis, setDis] = React.useState(true);
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -103,8 +149,16 @@ function SignUp() {
     setCPassword("");
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   React.useEffect(() => {
-    if (password === cpassword && password !== "") {
+    if (password === cpassword) {
       setError(false);
       setEText("");
       setDis(false);
@@ -138,6 +192,7 @@ function SignUp() {
               If you dont have an account, you can create one here
             </DialogContentText>
             <TextField
+              className={classes.textfield}
               required
               label="Email"
               type="email"
@@ -146,6 +201,7 @@ function SignUp() {
               fullWidth
             />
             <TextField
+              className={classes.textfield}
               required
               label="First Name"
               type="text"
@@ -153,6 +209,7 @@ function SignUp() {
               fullWidth
             />
             <TextField
+              className={classes.textfield}
               required
               label="Last Name"
               value={lname}
@@ -160,31 +217,68 @@ function SignUp() {
               fullWidth
             />
             <TextField
+              className={classes.textfield}
               required
               label="Phone Number"
               value={phone}
               onInput={(e) => setPhone(e.target.value)}
               fullWidth
             />
-            <TextField
+            <FormControl
               required
-              label="Password"
-              type="password"
-              value={password}
-              onInput={(e) => setPassword(e.target.value)}
               fullWidth
               error={error}
-            />
-            <TextField
+              className={classes.textfield}
+            >
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      colour="secondary"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+            <FormControl
               required
-              label="Confrim Password"
-              type="password"
-              value={cpassword}
-              onInput={(e) => setCPassword(e.target.value)}
               fullWidth
               error={error}
-              helperText={errorText}
-            />
+              className={classes.textfield}
+            >
+              <InputLabel htmlFor="Confrim-Password">
+                Confrim Password
+              </InputLabel>
+              <Input
+                id="Confrim-Password"
+                type={showPassword ? "text" : "password"}
+                value={cpassword}
+                onChange={(e) => setCPassword(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      colour="secondary"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              {error ? <FormHelperText>{errorText}</FormHelperText> : null}
+            </FormControl>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="secondary">
@@ -217,14 +311,6 @@ function Logout({ setAuthUser }) {
     </Button>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-}));
 
 function AuthButtons({ isLoggedIn, setAuthUser }) {
   const classes = useStyles();

@@ -17,7 +17,7 @@ def get_csrf():
 
 @api.route("/api/test")
 def test():
-    create_db()
+    print(User.query.all())
     print(session) if session else print('No session')
     print('Yay you can communicate with the server!')
     if request.headers.get("X-CSRFToken"):
