@@ -35,7 +35,8 @@ const SessionManagerProvider = (props) => {
 
   React.useEffect(() => {
     checkLoggedIn().then((data) => {
-      setCurrentLoggedIn(data.status);
+      if (localStorage.getItem("Remember") === "true")
+        setCurrentLoggedIn(data.status);
       if (!data.sess) {
         SkullReact.Set().then((data) => {
           setCurrent(data);

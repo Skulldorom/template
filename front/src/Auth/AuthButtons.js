@@ -14,6 +14,8 @@ import {
   InputAdornment,
   IconButton,
   FormHelperText,
+  FormControlLabel,
+  Switch,
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { login, logout, createAccount } from "../Auth/Auth";
@@ -35,6 +37,7 @@ function Login({ setAuthUser }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
+  const [remember, setRemember] = React.useState(false);
 
   const classes = useStyles();
 
@@ -57,7 +60,10 @@ function Login({ setAuthUser }) {
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    login({ email: email, password: password }, setAuthUser);
+    login(
+      { email: email, password: password, remember: remember },
+      setAuthUser
+    );
   };
   return (
     <>
@@ -99,6 +105,20 @@ function Login({ setAuthUser }) {
                 }
               />
             </FormControl>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={remember}
+                    onChange={(e) => {
+                      setRemember(e.target.checked);
+                    }}
+                    name="remember"
+                  />
+                }
+                label="Remember Me"
+              />
+            </FormGroup>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="secondary">

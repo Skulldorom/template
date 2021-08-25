@@ -8,8 +8,10 @@ import Brightness7Icon from "@material-ui/icons/Brightness7";
 import { SvgIcon } from "@material-ui/core";
 
 export default function ThemeSlider() {
-  const [dark, setDark] = React.useState(true);
-  const { setTheme } = React.useContext(CustomThemeContext);
+  const { currentTheme, setTheme } = React.useContext(CustomThemeContext);
+  const [dark, setDark] = React.useState(
+    currentTheme === "dark" ? true : false
+  );
 
   const handleChange = (e) => {
     const checked = e.target.checked;

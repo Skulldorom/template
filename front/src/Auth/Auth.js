@@ -5,13 +5,19 @@ import SkullReact from "../SkullReact";
 const backend = SkullReact.Check();
 
 export function login(data, setAuthUser) {
+  const r = data.remember;
   return axios
     .post(backend + `/api/auth/login`, data, {
       withCredentials: true,
     })
     .then((res) => {
-      toast.success("You have been logged in, " + res.data.name);
-      setAuthUser(true);
+      if (res.data.status === "success") {
+        toast.success(res.data.message);
+        localStorage.setItem("Remember", r);
+        setAuthUser(true);
+      } else {
+        toast.warning(res.data.message);
+      }
     })
     .catch((err) => {
       toast.error("Ohh no something went wrong");
@@ -25,9 +31,8 @@ export function logout(setAuthUser) {
       withCredentials: true,
     })
     .then((res) => {
-      toast.success(res.data.message);
+      toast.info(res.data.message);
       setAuthUser(false);
-      localStorage.clear();
       return res;
     })
     .catch((err) => {
