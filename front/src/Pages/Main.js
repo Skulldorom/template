@@ -1,28 +1,30 @@
+import React from "react";
 import logo from "../logo.svg";
-import "../App.css";
 import SkullReact from "../SkullReact";
-import { login, logout, createAccount } from "../Auth/Auth";
-import axios from "axios";
+import { Typography, Button } from "@material-ui/core";
+import { SessionManager } from "../Auth/SesssionManager";
 
 export default function Main(props) {
-  console.log(props);
-  const header = props.header["X-CSRFToken"];
-  axios.defaults.headers.common["X-CSRFToken"] = header;
-  const createdata = {
-    email: "test",
-    password: "test",
-    fname: "john",
-    lname: "doe",
-    telephone: "0723475693",
-  };
+  const { isLoggedIn } = React.useContext(SessionManager);
   return (
     <>
-      <img src={logo} style={{ height: "300px" }} alt="logo" />
-      <p onClick={() => createAccount(createdata)}>Create AC</p>
-      <p onClick={() => login({ email: "test", password: "test" })}>Login</p>
-      <p onClick={() => logout()}>Logout</p>
-      <p onClick={() => SkullReact.Test()}>Test</p>
-      <p>Logged in? {String(props.isLoggedIn)}</p>
+      <Typography variant="body1" color="primary" align="center">
+        <img src={logo} style={{ height: "300px" }} alt="logo" />
+      </Typography>
+      <Typography variant="body1" color="primary" align="center">
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => SkullReact.Test()}
+        >
+          Test (Prints in the backend)
+        </Button>
+      </Typography>
+      <br />
+      <br />
+      <Typography variant="h3" color="primary" align="center">
+        Logged in? {String(isLoggedIn)}
+      </Typography>
     </>
   );
 }

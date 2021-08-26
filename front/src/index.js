@@ -10,28 +10,31 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomThemeProvider from "./Components/CustomThemeProvider";
 import SessionManagerProvider from "./Auth/SesssionManager";
+import { BrowserRouter as Router } from "react-router-dom";
 
 document.title = "Flask React";
 
 ReactDOM.render(
   <React.StrictMode>
-    <SessionManagerProvider>
-      <CustomThemeProvider>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <CssBaseline />
-        <App />
-      </CustomThemeProvider>
-    </SessionManagerProvider>
+    <Router>
+      <SessionManagerProvider>
+        <CustomThemeProvider>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+          <CssBaseline />
+          <App />
+        </CustomThemeProvider>
+      </SessionManagerProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -114,3 +114,5 @@ dmypy.json
 
 # project specific
 secret.py
+
+# fornt/build/
