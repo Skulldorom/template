@@ -18,13 +18,16 @@ def get_csrf():
 
 @api.route("/api/test")
 def test():
-    print(User.query.all())
     print(session) if session else print("No session")
     print("Yay you can communicate with the server!")
-    if request.headers.get("X-CSRFToken"):
-        response = jsonify(detail="success")
+    from Components.Initializer import create
+
+    created = create()
+    if created:
+        response = {"status": "success", "message": "Databse initialized"}
     else:
-        response = jsonify(detail="Fail")
+        response = {"status": "Meh", "message": "Nothing really happened..."}
+
     return response
 
 
@@ -53,8 +56,6 @@ def login():
     email = post_data["email"].lower()
     password = post_data["password"]
     r = post_data["remember"]
-
-    print(r, type(r))
 
     user = User.query.filter_by(email=email).first()
 

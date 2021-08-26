@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, session, redirect
+from flask import Flask, Blueprint, session, redirect, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
@@ -13,7 +13,7 @@ login_manager = LoginManager()
 
 def create_app():
     # set the project root directory as the static folder, you can set others.
-    app = Flask(__name__, static_url_path="", static_folder="front/build")
+    app = Flask(__name__, static_folder="front/build", static_url_path="")
 
     if app.config["DEBUG"]:
         import secret
@@ -65,11 +65,6 @@ def create_app():
 
     app.register_blueprint(api_blueprint)
 
-    # blueprint for non-auth parts of app
-    from main import main as main_blueprint
-
-    app.register_blueprint(main_blueprint)
-
     db.init_app(app)
     from models import User
 
@@ -83,10 +78,16 @@ def create_app():
     if app.config["DEBUG"]:
         print("React app running on http://localhost:5000/")
 
-    @app.errorhandler(404)
-    def not_found(e):
-        print(e)
-        return redirect("/")
+    @app.route("/", defaults={"path": ""})
+    @app.route("/<string:path>")
+    @app.route("/<path:path>")
+    def catch_all(path):
+        print(path)
+        return app.send_static_file("index.html")
+
+    @app.route("/manifest.json")
+    def manifest():
+        return app.send_static_file("manifest.json")
 
     return app
 

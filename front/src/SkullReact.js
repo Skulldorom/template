@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const SkullReact = {
   Check: function DevCheck() {
@@ -27,6 +28,7 @@ const SkullReact = {
     return axios
       .get(backend + `/api/test`, { withCredentials: true })
       .then((res) => {
+        toast.success(res.data.message);
         return res;
       });
   },

@@ -17,7 +17,7 @@ export default function Main(props) {
           color="secondary"
           onClick={() => SkullReact.Test()}
         >
-          Test (Prints in the backend)
+          Test 1 (Prints in the backend and used to initialize the database)
         </Button>
       </Typography>
       <br />
